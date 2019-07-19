@@ -1,0 +1,79 @@
+// mixin for buttons
+.button-style{
+    font-weight: 500;
+    font-size: 20px;
+    font-family: sans-serif;
+    border: none;
+    outline: none;
+    transition: background 500ms;
+
+    &:hover{
+        background: darken(white, 30%);
+    }
+}
+
+// main styles
+.wrapper{
+    position: relative;
+    width: 400px;
+    border-radius: 10px;
+    background: black;
+
+    .screen{
+        width: 100%;
+        height: 125px;
+        line-height: 125px;
+        padding: 0 10px 0 10px;
+        font-size: 40px;
+        font-family: sans-serif;
+        color: white;
+        text-align: right;
+        border-radius: 8px;
+        background: black;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .first-row{
+        width: 100%;
+        height: 75px;
+        background: red;
+
+        button{
+            width: 25%;
+            height: 100%;
+            .button-style;
+        }
+    }
+
+    .row{
+        width: 75%;
+        height: 75px;
+
+        button{
+            width: 33.33%;
+            height: 100%;
+            .button-style;
+        }
+
+        .border-left{
+            border-bottom-left-radius: 10px;
+        }
+    }
+
+    .btn-result{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 25%;
+        height: 75px * 4;
+        background: #FF4500;
+        border: none;
+        border-bottom-right-radius: 10px;
+        transition: background 500ms;
+
+        &:hover{
+            background: darken(#FF4500, 15%);
+        }
+    }
+}

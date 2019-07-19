@@ -1,0 +1,83 @@
+.button-style {
+  font-weight: 500;
+  font-size: 20px;
+  font-family: sans-serif;
+  border: none;
+  outline: none;
+  transition: background 500ms;
+}
+.button-style:hover {
+  background: #b3b3b3;
+}
+.wrapper {
+  position: relative;
+  width: 400px;
+  border-radius: 10px;
+  background: black;
+}
+.wrapper .screen {
+  width: 100%;
+  height: 125px;
+  line-height: 125px;
+  padding: 0 10px 0 10px;
+  font-size: 40px;
+  font-family: sans-serif;
+  color: white;
+  text-align: right;
+  border-radius: 8px;
+  background: black;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.wrapper .first-row {
+  width: 100%;
+  height: 75px;
+  background: red;
+}
+.wrapper .first-row button {
+  width: 25%;
+  height: 100%;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: sans-serif;
+  border: none;
+  outline: none;
+  transition: background 500ms;
+}
+.wrapper .first-row button:hover {
+  background: #b3b3b3;
+}
+.wrapper .row {
+  width: 75%;
+  height: 75px;
+}
+.wrapper .row button {
+  width: 33.33%;
+  height: 100%;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: sans-serif;
+  border: none;
+  outline: none;
+  transition: background 500ms;
+}
+.wrapper .row button:hover {
+  background: #b3b3b3;
+}
+.wrapper .row .border-left {
+  border-bottom-left-radius: 10px;
+}
+.wrapper .btn-result {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 25%;
+  height: 300px;
+  background: #FF4500;
+  border: none;
+  border-bottom-right-radius: 10px;
+  transition: background 500ms;
+}
+.wrapper .btn-result:hover {
+  background: #b33000;
+}
