@@ -6,7 +6,7 @@ import ButtonDot from './components/ButtonDot';
 import ButtonZeroNumber from './components/number-buttons/ButtonZeroNumber';
 import ButtonFromOneToThree from './components/number-buttons/ButtonFromOneToThree';
 import ButtonFromFourToSix from './components/number-buttons/ButtonFromFourToSix';
-import ButtonFromSixToNine from './components/number-buttons/ButtonFromSixToNine';
+import ButtonFromSevenToNine from './components/number-buttons/ButtonFromSevenToNine';
 import './App.css';
 
 /* content for buttons of calculator */
@@ -63,7 +63,8 @@ export default class App extends Component{
         screen: prevState.screen + mathSign
       }));
     }
-    else if(screen[screen.length-1] === '+' || screen[screen.length-1] === '-' || screen[screen.length-1] === '*' || screen[screen.length-1] === '/'){
+    else if((screen[screen.length-1] === '+') || (screen[screen.length-1] === '-') || 
+            (screen[screen.length-1] === '*') || (screen[screen.length-1] === '/')){
       this.setState(prevState => ({
         screen: prevState.screen + ''
       }));
@@ -101,23 +102,27 @@ export default class App extends Component{
     let resultBeforeConversion; // result as number type
     let resultAfterConversion; // result as string type (lastIndexOf method requaires)
 
-    const string = this.state.screen;
-    const numbers = string.split(this.state.mathSign);
-    const firstNumber = parseFloat(numbers[0]);
-    const secondNumber = parseFloat(numbers[1]);
+    const {mathSign, screen} = this.state;
 
-    const {mathSign} = this.state;
-
-    if(mathSign === '+')  resultBeforeConversion = firstNumber + secondNumber;
-    else if(mathSign === '-')  resultBeforeConversion = firstNumber - secondNumber;
-    else if(mathSign === '*') resultBeforeConversion = firstNumber * secondNumber;
-    else resultBeforeConversion = firstNumber / secondNumber;
-
-    resultAfterConversion = `${resultBeforeConversion}`; // converstion from type number to string
-
-    this.setState({
-      screen: resultAfterConversion
-    });
+    if((screen.indexOf('+') !== -1) || (screen.indexOf('-') !== -1) || 
+       (screen.indexOf('*') !== -1) || (screen.indexOf('/') !== -1)){
+        const numbers = screen.split(this.state.mathSign);
+        const firstNumber = parseFloat(numbers[0]);
+        const secondNumber = parseFloat(numbers[1]);
+    
+        if(mathSign === '+')  resultBeforeConversion = firstNumber + secondNumber;
+        else if(mathSign === '-')  resultBeforeConversion = firstNumber - secondNumber;
+        else if(mathSign === '*') resultBeforeConversion = firstNumber * secondNumber;
+        else resultBeforeConversion = firstNumber / secondNumber;
+    
+        resultAfterConversion = `${resultBeforeConversion}`; // converstion from type number to string
+    
+        if(resultAfterConversion !== 'NaN'){
+          this.setState({
+            screen: resultAfterConversion
+          });
+       }
+    }
   }
 
   handleClearClick = () => {
@@ -138,7 +143,7 @@ export default class App extends Component{
 
     const buttonsFromOneToThree = buttonFromOneToThree.map((number, index) => (
       <ButtonFromOneToThree
-        key={index}
+        id={number.toString()}
         class="button"
         click={this.handleNumberClick}
         number={number} 
@@ -147,7 +152,7 @@ export default class App extends Component{
 
     const buttonsFromFourToSix = buttonFromFourToSix.map((number, index) => (
       <ButtonFromFourToSix
-        key={index}
+        id={number.toString()}
         class="button"
         click={this.handleNumberClick}
         number={number} 
@@ -155,8 +160,8 @@ export default class App extends Component{
     ))
 
     const buttonsFromSevenToNine = buttonFromSevenToNine.map((number, index) => (
-      <ButtonFromSixToNine
-        key={index}
+      <ButtonFromSevenToNine
+        id={number.toString()}
         class="button"
         click={this.handleNumberClick}
         number={number} 

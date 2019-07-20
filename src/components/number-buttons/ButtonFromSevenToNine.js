@@ -1,8 +1,9 @@
 import React from 'react';
 
-const ButtonFromSixToNine = (props) => {
+const ButtonFromSevenToNine = (props) => {
   return(
     <button 
+      key={props.id}
       onClick={props.click} 
       className={props.class}>
       <span>{props.number}</span>
@@ -10,4 +11,4 @@ const ButtonFromSixToNine = (props) => {
   )
 }
 
-export default ButtonFromSixToNine;
+export default ButtonFromSevenToNine;
