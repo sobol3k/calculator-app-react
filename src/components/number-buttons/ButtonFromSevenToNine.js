@@ -6,7 +6,9 @@ const ButtonFromSevenToNine = (props) => {
       key={props.id}
       onClick={props.click} 
       className={props.class}>
-      <span>{props.number}</span>
+      <span>
+        {props.number}
+      </span>
     </button>
   )
 }

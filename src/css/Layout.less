@@ -1,5 +1,4 @@
-// mixin for buttons
-.button-style{
+.btn-mixins{
     font-weight: 500;
     font-size: 20px;
     font-family: sans-serif;
@@ -12,12 +11,13 @@
     }
 }
 
-// main styles
+/* main*/
+
 .wrapper{
     position: relative;
     width: 400px;
     border-radius: 10px;
-    background: black;
+    background: buttonface;
 
     .screen{
         width: 100%;
@@ -28,7 +28,8 @@
         font-family: sans-serif;
         color: white;
         text-align: right;
-        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
         background: black;
         box-sizing: border-box;
         overflow: hidden;
@@ -42,7 +43,7 @@
         button{
             width: 25%;
             height: 100%;
-            .button-style;
+            .btn-mixins;
         }
     }
 
@@ -53,7 +54,7 @@
         button{
             width: 33.33%;
             height: 100%;
-            .button-style;
+            .btn-mixins;
         }
 
         .border-left{
@@ -70,6 +71,7 @@
         background: #FF4500;
         border: none;
         border-bottom-right-radius: 10px;
+        border-top-left-radius: 10px;
         transition: background 500ms;
 
         &:hover{

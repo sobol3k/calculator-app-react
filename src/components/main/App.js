@@ -1,19 +1,5 @@
 import React, {Component} from 'react';
-import ButtonMath from './components/ButtonMath';
-import ButtonResult from './components/ButtonResult';
-import ButtonClearScreen from './components/ButtonClearScreen';
-import ButtonDot from './components/ButtonDot';
-import ButtonZeroNumber from './components/number-buttons/ButtonZeroNumber';
-import ButtonFromOneToThree from './components/number-buttons/ButtonFromOneToThree';
-import ButtonFromFourToSix from './components/number-buttons/ButtonFromFourToSix';
-import ButtonFromSevenToNine from './components/number-buttons/ButtonFromSevenToNine';
-import './App.css';
-
-/* content for buttons of calculator */
-const char = ['+', '-', '*', '/'];
-const buttonFromOneToThree = [1, 2, 3];
-const buttonFromFourToSix = [4, 5, 6];
-const buttonFromSevenToNine = [7, 8, 9];
+import Layout from '../../layout/Layout';
 
 export default class App extends Component{
   state = {
@@ -99,29 +85,43 @@ export default class App extends Component{
   }
 
   handleResultClick = () => {
-    let resultBeforeConversion; // result as number type
-    let resultAfterConversion; // result as string type (lastIndexOf method requaires)
-
     const {mathSign, screen} = this.state;
+    let resultBeforeConversion; // result as number type
+    let resultAfterConversion; // result as string type (lastIndexOf method require)
 
     if((screen.indexOf('+') !== -1) || (screen.indexOf('-') !== -1) || 
        (screen.indexOf('*') !== -1) || (screen.indexOf('/') !== -1)){
-        const numbers = screen.split(this.state.mathSign);
-        const firstNumber = parseFloat(numbers[0]);
-        const secondNumber = parseFloat(numbers[1]);
-    
-        if(mathSign === '+')  resultBeforeConversion = firstNumber + secondNumber;
-        else if(mathSign === '-')  resultBeforeConversion = firstNumber - secondNumber;
-        else if(mathSign === '*') resultBeforeConversion = firstNumber * secondNumber;
-        else resultBeforeConversion = firstNumber / secondNumber;
-    
-        resultAfterConversion = `${resultBeforeConversion}`; // converstion from type number to string
-    
-        if(resultAfterConversion !== 'NaN'){
+         
+      const numbers = screen.split(this.state.mathSign);
+      const firstNumber = parseFloat(numbers[0]);
+      const secondNumber = parseFloat(numbers[1]);
+
+      switch(mathSign){
+        case '+':
+          resultBeforeConversion = firstNumber + secondNumber;
+          break;
+        case '-':
+          resultBeforeConversion = firstNumber - secondNumber;
+          break;
+        case '*':
+          resultBeforeConversion = firstNumber * secondNumber;
+          break;
+        case '/':
+          resultBeforeConversion = firstNumber / secondNumber;
+          break;
+        default:
           this.setState({
-            screen: resultAfterConversion
+            screen: 'wystąpił nieoczekiwany błąd - spróbuj ponownie!',
           });
-       }
+      }
+
+      resultAfterConversion = `${resultBeforeConversion}`; // converstion from type number to string
+    
+      if(resultAfterConversion !== 'NaN'){
+        this.setState({
+          screen: resultAfterConversion
+        });
+      }
     }
   }
 
@@ -133,72 +133,15 @@ export default class App extends Component{
   }
 
   render(){
-    const buttonsChars = char.map(char => (
-      <ButtonMath 
-        class="button"
-        click={this.handleCharClick}
-        char={char} 
-      />
-    ))
-
-    const buttonsFromOneToThree = buttonFromOneToThree.map((number, index) => (
-      <ButtonFromOneToThree
-        id={number.toString()}
-        class="button"
-        click={this.handleNumberClick}
-        number={number} 
-      />
-    ))
-
-    const buttonsFromFourToSix = buttonFromFourToSix.map((number, index) => (
-      <ButtonFromFourToSix
-        id={number.toString()}
-        class="button"
-        click={this.handleNumberClick}
-        number={number} 
-      />
-    ))
-
-    const buttonsFromSevenToNine = buttonFromSevenToNine.map((number, index) => (
-      <ButtonFromSevenToNine
-        id={number.toString()}
-        class="button"
-        click={this.handleNumberClick}
-        number={number} 
-      />
-    ))
-
     return(
-      <div className="wrapper">
-        <div className="screen">
-          {this.state.screen}
-        </div>
-        <div className="first-row">
-          {buttonsChars}
-        </div>
-        <div className="row">
-          {buttonsFromSevenToNine}
-        </div>
-        <div className="row">
-          {buttonsFromFourToSix}
-        </div>
-        <div className="row">
-          {buttonsFromOneToThree}
-        </div>
-        <div className="row">
-          <ButtonZeroNumber 
-            click={this.handleNumberClick} 
-          />
-          <ButtonDot 
-            click={this.handleNumberClick}
-          />
-          <ButtonClearScreen 
-            click={this.handleClearClick} 
-          />
-        </div>
-        <ButtonResult click={this.handleResultClick} />
-      </div>
-    )
+      <Layout 
+        click={this.handleNumberClick} 
+        result={this.handleResultClick}
+        char={this.handleCharClick}
+        clear={this.handleClearClick}  
+        screen={this.state.screen}
+      />
+    );
   }
 }
 

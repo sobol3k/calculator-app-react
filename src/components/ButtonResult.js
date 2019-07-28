@@ -4,7 +4,9 @@ const ButtonResult = (props) => {
   return(
     <button className="btn-result" 
       onClick={props.click}>
-      <span>=</span>
+      <span>
+        =
+      </span>
     </button>
   )
 }

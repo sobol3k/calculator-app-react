@@ -5,7 +5,9 @@ const ButtonZeroNumber = (props) => {
     <button 
       onClick={props.click} 
       className="border-left">
-      <span>0</span>
+      <span>
+        0
+      </span>
     </button>
   )
 }

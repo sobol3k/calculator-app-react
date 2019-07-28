@@ -4,7 +4,9 @@ const ButtonClearScreen = (props) => {
   return(
     <button 
       onClick={props.click}>
-      <span>C</span>
+      <span>
+        C
+      </span>
     </button>
   )
 }
