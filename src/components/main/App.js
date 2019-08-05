@@ -84,43 +84,60 @@ export default class App extends Component{
     }
   }
 
+  calculate = (action, a, b) => {
+    let result;
+    switch(action){
+      case '+':
+        result = a + b;
+        break;
+      case '-':
+        result = a - b;
+        break;
+      case '*':
+        result = a * b;
+        break;
+      case '/':
+        result = a / b;
+        break;
+      default:
+        this.setState({
+          screen: 'wystąpił nieoczekiwany błąd - spróbuj ponownie!',
+      });
+    }
+    return result;
+  }
+
   handleResultClick = () => {
     const {mathSign, screen} = this.state;
-    let resultBeforeConversion; // result as number type
-    let resultAfterConversion; // result as string type (lastIndexOf method require)
-
+    let result; // result as type number
+    let resultToString; // result as type string (lastIndexOf method requires)
+    
     if((screen.indexOf('+') !== -1) || (screen.indexOf('-') !== -1) || 
        (screen.indexOf('*') !== -1) || (screen.indexOf('/') !== -1)){
-         
-      const numbers = screen.split(this.state.mathSign);
-      const firstNumber = parseFloat(numbers[0]);
-      const secondNumber = parseFloat(numbers[1]);
-
-      switch(mathSign){
-        case '+':
-          resultBeforeConversion = firstNumber + secondNumber;
-          break;
-        case '-':
-          resultBeforeConversion = firstNumber - secondNumber;
-          break;
-        case '*':
-          resultBeforeConversion = firstNumber * secondNumber;
-          break;
-        case '/':
-          resultBeforeConversion = firstNumber / secondNumber;
-          break;
-        default:
+      if(screen[0] === '-'){
+        const fixedArray = screen.slice(1, screen.length); // delete a minus sign
+        const number = fixedArray.split(mathSign);
+        const firstNumber = parseFloat('-' + number[0]);
+        const secondNumber = parseFloat(number[1]);
+        result = this.calculate(mathSign, firstNumber, secondNumber);
+        resultToString = `${result}`;
+        if(resultToString !== 'NaN'){
           this.setState({
-            screen: 'wystąpił nieoczekiwany błąd - spróbuj ponownie!',
+            screen: resultToString
           });
+        }
       }
-
-      resultAfterConversion = `${resultBeforeConversion}`; // converstion from type number to string
-    
-      if(resultAfterConversion !== 'NaN'){
-        this.setState({
-          screen: resultAfterConversion
-        });
+      else{
+        const number = screen.split(mathSign);
+        const firstNumber = parseFloat(number[0]);
+        const secondNumber = parseFloat(number[1]);
+        result = this.calculate(mathSign, firstNumber, secondNumber);
+        resultToString = `${result}`;
+        if(resultToString !== 'NaN'){
+          this.setState({
+            screen: resultToString
+          });
+        }
       }
     }
   }
